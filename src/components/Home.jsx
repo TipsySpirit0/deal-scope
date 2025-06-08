@@ -1,7 +1,6 @@
 import { FaSearch } from "@react-icons/all-files/fa/FaSearch";
 import { IoStatsChart } from "react-icons/io5";
 import { FaSave } from "react-icons/fa";
-import Font from "react-font";
 
 export default function Home(){
     return(
