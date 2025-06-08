@@ -6,7 +6,7 @@ import App from './App.jsx'
 import Homepage from './pages/Homepage.jsx'
 import Aboutpage from './pages/Aboutpage.jsx'
 import Errorpage from './components/Eror404page.jsx'
-import Signin from './components/Signin.jsx'
+import Signinpage from './pages/SignInpage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/signin',
-    element: <Signin />,
+    element: <Signinpage />,
   }
 ])
 
