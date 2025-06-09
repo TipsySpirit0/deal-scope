@@ -19,7 +19,7 @@ export default function Signin(){
                 </div>
             </div>
             <div className="flex flex-row justify-center px-5 py-8 bg-gray-100 min-w-96 max-w-fit max-h-fit rounded-lg border border-slate-300">
-                <p>New to DealScope?</p><br /><Link to="" className="text-blue-600">Create an account</Link>
+                <p>New to DealScope?</p><br /><Link to="/signup" className="text-blue-600">Create an account</Link>
             </div>
         </div>
     );

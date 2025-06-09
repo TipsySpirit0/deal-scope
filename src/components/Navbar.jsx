@@ -13,7 +13,7 @@ export default function Navbar(){
                     </nav>            
                     <div className="gap-4 flex">
                         <Link to='/signin' className="border hover:scale-105 transition duration-200 px-3 py-1 rounded-md border-slate-400">Sign in</Link>
-                        <button className="border hover:scale-105 transition duration-200 px-3 py-1 text-white rounded-md bg-black border-white">Sign Up</button>
+                        <Link to='/signup' className="border hover:scale-105 transition duration-200 px-3 py-1 text-white rounded-md bg-black border-white">Sign Up</Link>
                     </div>
                 </div>
             </div>
