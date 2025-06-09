@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 export default function Navbar(){
     return(
-        <div className="">
             <div className="border-b flex justify-center border-slate-400">
                 <div className="flex container h-14 font-mono font-semibold items-center justify-between px-6">
                     <Link to='/' className="text-2xl font-roboto cursor-pointer hover:scale-105 hover:bg-stone-900 hover:text-gray-50 px-3 py-1 rounded transition duration-200 ease-in-out">
@@ -18,6 +17,5 @@ export default function Navbar(){
                     </div>
                 </div>
             </div>
-        </div>
     );
 }
