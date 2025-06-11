@@ -8,6 +8,7 @@ import Aboutpage from './pages/Aboutpage.jsx'
 import Errorpage from './components/Eror404page.jsx'
 import Signinpage from './pages/SignInpage.jsx'
 import Signuppage from './pages/Signuppage.jsx'
+import Dashboard from './components/Dashboard.jsx'
 
 
 const router = createBrowserRouter([
@@ -23,11 +24,18 @@ const router = createBrowserRouter([
   },
   {
     path: '/signin',
-    element: <Signinpage />
+    element: <Signinpage />,
+    errorElement: <Errorpage />
   },
   {
     path:'/signup',
-    element: <Signuppage />
+    element: <Signuppage />,
+    errorElement: <Errorpage />
+  },
+  {
+    path:'/dashboard',
+    element: <Dashboard />,
+    errorElement: <Errorpage />
   }
 ])
 
