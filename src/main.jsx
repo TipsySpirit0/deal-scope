@@ -8,7 +8,7 @@ import Aboutpage from './pages/Aboutpage.jsx'
 import Errorpage from './components/Eror404page.jsx'
 import Signinpage from './pages/SignInpage.jsx'
 import Signuppage from './pages/Signuppage.jsx'
-import Dashboard from './components/Dashboard.jsx'
+import Dashboardpage from './pages/Dashboardpage.jsx'
 
 
 const router = createBrowserRouter([
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/dashboard',
-    element: <Dashboard />,
+    element: <Dashboardpage />,
     errorElement: <Errorpage />
   }
 ])

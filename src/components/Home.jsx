@@ -1,6 +1,7 @@
 import { FaSearch } from "@react-icons/all-files/fa/FaSearch";
 import { IoStatsChart } from "react-icons/io5";
 import { FaSave } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Home(){
     return(
@@ -11,7 +12,7 @@ export default function Home(){
                     <p className="mx-auto max-w-[700px] text-xl tracking-tight text-slate-500">Compare prices from various retailers and get personalized recommendations</p>
                 </div>
                 <br />
-                <button className="bg-black border hover:bg-slate-50 hover:font-bold hover:text-black scale-105 transition ease-in-out duration-200 hover:border-black text-white rounded-md px-4 py-3 my-3">Get started</button>
+                <Link to='/dashboard' className="bg-black border hover:bg-slate-50 hover:font-bold hover:text-black scale-105 transition ease-in-out duration-200 hover:border-black text-white rounded-md px-4 py-3 my-3">Get started</Link>
             </section>
             <section className="flex flex-col font-mono items-center justify-center w-full py-28 text-center">
                 <h1 className="text-4xl font-mono font-bold tracking-tight">How It Works</h1>
