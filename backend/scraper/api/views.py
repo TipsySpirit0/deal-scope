@@ -27,7 +27,7 @@ class ScraperViewSet(ModelViewSet):
             price_tag = item.select_one("div.prc")
             link_tag = item.find("a", href=True)
             img_tag = item.find("img")
-            img_url = img_tag["src"] if img_tag and "src" in img_tag.attrs else "No image"
+            img_url = img_tag['data-src'] if img_tag and 'data-src' in img_tag.attrs else 'N/A'
             if name_tag and price_tag and link_tag and img_url:
                 product = {
                     "site": "Jumia",
