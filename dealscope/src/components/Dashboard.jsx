@@ -39,8 +39,8 @@ const [loading, setLoading] = useState(false); // Add loading state
         <div className="flex justify-center items-center bg-slate-50 h-fit w-auto">
             <div className="text-center">
                 <h1 className="text-5xl font-semibold mb-9">DealScope</h1>
-                <input type="search" name="product" id="product" placeholder="Search for Product" value={keyword} onChange={(e)=>setKeyword(e.target.value)} className="inline sm:w-full lg:w-[1000px] rounded-md border border-gray-300 bg-white py-4 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"/>
-                <button type="button" onClick={handleScrape} className="text-white text-xl font-bold bg-black py-3 w-52 rounded-lg border hover:border-black hover:bg-white hover:text-black" disabled={loading}>Submit</button>
+                <input type="search" name="product" id="product" placeholder="Search for Product" value={keyword} onChange={(e)=>setKeyword(e.target.value)} className="sm:w-full lg:w-[1000px] px-2 py-4 border border-gray-300 rounded-lg mr-2 bg-gray-50 focus:bg-transparent"/>
+                <button type="button" onClick={handleScrape} className="text-white text-xl font-bold bg-black py-3 w-52 rounded-lg border transition duration-100 hover:border-black hover:bg-white hover:text-black" disabled={loading}>Submit</button>
                 {loading && <p className="text-blue-500">Loading...</p>} {/* Show loading message */}
                 <ul className="grid grid-cols-3">
                     {error && <li className="text-red-500">{error}</li>}
@@ -62,6 +62,7 @@ const [loading, setLoading] = useState(false); // Add loading state
                         img={result.img}
                         product_name={result.product_name}
                         price={result.price}
+                        platform={result.site}
                         key={index} // Use index as key for simplicity, but ideally use a unique identifier
                         />
                     ))}

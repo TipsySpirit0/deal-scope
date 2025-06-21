@@ -24,10 +24,15 @@ class ScraperViewSet(ModelViewSet):
         products = []
         for item in soup.select("article.prd"):
             name_tag = item.select_one("h3.name")
+            
             price_tag = item.select_one("div.prc")
-            link_tag = item.find("a", href=True)
+            
+            link_tag = item.find('a', href=True)
+            product_link = 'https://www.jumia.com.ng' + link_tag['href'] if link_tag else 'N/A'
+            
             img_tag = item.find("img")
             img_url = img_tag['data-src'] if img_tag and 'data-src' in img_tag.attrs else 'N/A'
+            
             if name_tag and price_tag and link_tag and img_url:
                 product = {
                     "site": "Jumia",
@@ -35,13 +40,10 @@ class ScraperViewSet(ModelViewSet):
                     "keyword": search_query,
                     "product_name": name_tag.text.strip(),
                     "price": price_tag.text.strip(),
-                    "url": "https://www.jumia.com.ng" + link_tag['href']
+                    "url": product_link
                 }
                 products.append(product)
                 # Save to database
                 # Scraper.objects.create(**product)
         serializer = self.serializer_class(products, many=True)
         return Response(serializer.data, status=201)
-    
-    
-    
