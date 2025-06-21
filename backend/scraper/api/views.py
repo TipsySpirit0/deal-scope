@@ -13,23 +13,30 @@ class ScraperViewSet(ModelViewSet):
         search_query = request.data.get('keyword')
         if not search_query:
             return Response({"error": "Keyword is required"}, status=400)
+
+        products = []
+        products.extend(self.scrape_jumia(search_query))
+        products.extend(self.slot_scraper(search_query))  # Add more sites as needed
+
+        serializer = self.serializer_class(products, many=True)
+        return Response(serializer.data, status=201)
+
+    def scrape_jumia(self, search_query):
         headers = {
             "User-Agent": "Mozilla/5.0"
         }
         url = f"https://www.jumia.com.ng/catalog/?q={search_query}"
         response = requests.get(url, headers=headers)
         if response.status_code != 200:
-            return Response({"error": "Failed to fetch data from Jumia"}, status=response.status_code)
+            return []
+
         soup = BeautifulSoup(response.content, 'html.parser')
         products = []
         for item in soup.select("article.prd"):
             name_tag = item.select_one("h3.name")
-            
             price_tag = item.select_one("div.prc")
-            
-            link_tag = item.find('a', href=True)
-            product_link = 'https://www.jumia.com.ng' + link_tag['href'] if link_tag else 'N/A'
-            
+            link_tag = item.find('a', class_='core')['href']
+            product_link = 'https://www.jumia.com.ng' + link_tag
             img_tag = item.find("img")
             img_url = img_tag['data-src'] if img_tag and 'data-src' in img_tag.attrs else 'N/A'
             
@@ -45,5 +52,47 @@ class ScraperViewSet(ModelViewSet):
                 products.append(product)
                 # Save to database
                 # Scraper.objects.create(**product)
-        serializer = self.serializer_class(products, many=True)
-        return Response(serializer.data, status=201)
+        return products
+
+    def slot_scraper(self, search_query):
+        url = f'https://slot.ng/index.php/catalogsearch/result/?cat=&q={search_query}'
+
+        headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0 Safari/537.36"
+        }
+
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            return []
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        products = soup.find_all('div', class_='product-card__content')
+
+        data = []
+
+        for product in soup.select('ol.products.list.items.product-items > li.product-item'):
+            # Product Title
+            name_tag = product.select_one('a.product-item-link').text.strip()
+            # title = title_tag.text.strip() if title_tag else 'No title'
+            
+            #img
+            img = product.find('img', class_='product-image-photo')['src']
+        
+            # Product Price
+            price_tag = product.select_one('span.price-wrapper')['data-price-amount']
+        
+       
+            # Product Link
+            link = product.find('a', class_='product-item-link')['href']
+
+            product = {
+                "site": "Slot",
+                "img": img,
+                "keyword": search_query,
+                "product_name": name_tag,
+                "price": price_tag,
+                "url": link
+            }
+            data.append(product)
+            
+        return data

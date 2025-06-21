@@ -46,17 +46,7 @@ const [loading, setLoading] = useState(false); // Add loading state
                     {error && <li className="text-red-500">{error}</li>}
                     {results.length === 0 && !loading && <li className="text-gray-500">No results found.</li>}
                     {Array.isArray(results) && results.map((result, index) => (
-                        // <li key={index} className="mt-2 grid grid-cols-2">
-                        //     <a href={result.url} target="_blank" rel="noopener noreferrer" className="text-black flex border-black border rounded-xl w-[500px] h-[250px] gap-3 items-center p-2">
-                                
-                        //             <img src={result.img} alt="" className="w-fit h-full" />
-                        //             <div className="flex flex-col">
-                        //                 <h2 className="text-xl font-bold">{result.product_name}</h2>
-                        //                 <p>{result.price}</p>
-                        //             </div>
-                                
-                        //     </a>
-                        // </li>
+
                         <Card
                         url={result.url}
                         img={result.img}
