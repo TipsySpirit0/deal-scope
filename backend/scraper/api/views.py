@@ -76,10 +76,12 @@ class ScraperViewSet(ModelViewSet):
             # title = title_tag.text.strip() if title_tag else 'No title'
             
             #img
-            img = product.find('img', class_='product-image-photo')['src']
+            img = product.find('img', class_='product-image-photo')['src'] if product.find('img', class_='product-image-photo') else 'N/A'
         
             # Product Price
-            price_tag = product.select_one('span.price-wrapper')['data-price-amount']
+            price_tag = product.select_one('span.price').text.strip()
+            price_tag = price_tag.replace('NGN', '₦').replace('&nbsp;', ' ')
+            
         
        
             # Product Link

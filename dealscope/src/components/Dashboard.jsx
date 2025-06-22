@@ -36,10 +36,10 @@ const [loading, setLoading] = useState(false); // Add loading state
         }
     };
     return(
-        <div className="flex justify-center items-center bg-slate-50 h-fit w-auto">
+        <div className="flex justify-center items-center h-fit w-auto">
             <div className="text-center">
                 <h1 className="text-5xl font-semibold mb-9">DealScope</h1>
-                <input type="search" name="product" id="product" placeholder="Search for Product" value={keyword} onChange={(e)=>setKeyword(e.target.value)} className="sm:w-full lg:w-[1000px] px-2 py-4 border border-gray-300 rounded-lg mr-2 bg-gray-50 focus:bg-transparent"/>
+                <input type="search" name="product" id="product" placeholder="Search for Product" value={keyword} onChange={(e)=>setKeyword(e.target.value)} className="sm:w-full mb-4 lg:w-[1000px] px-2 py-4 border border-gray-300 rounded-lg mr-2 bg-gray-50 focus:bg-transparent"/>
                 <button type="button" onClick={handleScrape} className="text-white text-xl font-bold bg-black py-3 w-52 rounded-lg border transition duration-100 hover:border-black hover:bg-white hover:text-black" disabled={loading}>Submit</button>
                 {loading && <p className="text-blue-500">Loading...</p>} {/* Show loading message */}
                 <ul className="grid grid-cols-3">
