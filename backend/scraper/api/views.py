@@ -1,6 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 import requests
+import random
 from bs4 import BeautifulSoup
 from ..models import Scraper  
 from .serializers import ScraperSerializer  
@@ -16,7 +17,9 @@ class ScraperViewSet(ModelViewSet):
 
         products = []
         products.extend(self.scrape_jumia(search_query))
-        products.extend(self.slot_scraper(search_query))  # Add more sites as needed
+        products.extend(self.jiji_scraper(search_query))
+        products.extend(self.slot_scraper(search_query))
+        random.shuffle(products)  # Randomize the products list
 
         serializer = self.serializer_class(products, many=True)
         return Response(serializer.data, status=201)
@@ -98,3 +101,56 @@ class ScraperViewSet(ModelViewSet):
                 data.append(product_data)
                 
         return data
+    
+    def jiji_scraper(self, search_query):
+        
+        base_url = f"https://jiji.ng/search?query={search_query}&page="
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115 Safari/537.36"
+        }
+               
+        for page in range(1, 10):
+            search_query = search_query.replace(" ", "-")
+            url = f"{base_url}{page}"
+
+            try:
+                response = requests.get(url, headers=headers)
+                response.raise_for_status()
+            except requests.exceptions.RequestException as e:
+                print("Failed to retrieve data:", e)
+                return []
+
+            soup = BeautifulSoup(response.text, 'html.parser')
+            listings = soup.find_all("div", class_="b-list-advert__gallery__item js-advert-list-item")  # main ad container
+            # print(f"Found {len(listings)} listings for the query: {search_query} on page {page}")
+            # if not listings:
+            #     print(f"No listings found for the query: {search_query}. Please check the search term or try again later.")
+            #     return []
+
+            results = []
+
+            for item in listings:
+                title_tag = item.select_one("div.b-advert-title-inner")
+                price_tag = item.select_one("div.qa-advert-price")
+                img_tag = item.find("img")
+                link_tag = item.find("a", href=True)
+
+                title = title_tag.get_text(strip=True) if title_tag else "No title available"
+                price = price_tag.get_text(strip=True) if price_tag else "No price available"
+                link = base_url + link_tag['href'] if link_tag else "No link available"
+                img = img_tag["src"] if img_tag else "No image available"
+        
+
+                result = {
+                    "site": "Jiji",
+                    "img": img,
+                    "keyword": search_query,
+                    "product_name": title,
+                    "price": price,
+                    "url": link,
+                }
+            
+                results.append(result)
+            
+        return results
+
