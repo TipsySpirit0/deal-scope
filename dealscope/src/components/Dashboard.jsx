@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
+import Searchbar from "./Searchbar";
 
 export default function Dashboard() {
     const [keyword, setKeyword] = useState("");
     const [results, setResults] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const [showScroll, setShowScroll] = useState(false); // State for scroll button visibility
+    const [showScroll, setShowScroll] = useState(false);
+    const [selectedPlatform, setSelectedPlatform] = useState(""); // New state for selected platform
 
     const handleScrape = async () => {
         setLoading(true);
@@ -62,26 +64,44 @@ export default function Dashboard() {
         };
     }, []);
 
+    // Filter results based on selected platform
+    const filteredResults = selectedPlatform
+        ? results.filter(result => result.site === selectedPlatform)
+        : results;
+
     return (
         <div className="flex justify-center items-center h-fit w-auto">
             <div className="text-center">
                 <h1 className="text-5xl font-semibold mb-9">DealScope</h1>
-                <input 
-                    type="search" 
-                    name="product" 
-                    id="product" 
-                    placeholder="Search for Product" 
-                    value={keyword} 
-                    onChange={(e) => setKeyword(e.target.value)} 
-                    onKeyDown={handleKeyDown} // Add this line
-                    className="sm:w-full mb-4 lg:w-[1000px] px-2 py-4 border border-gray-300 rounded-lg mr-2 bg-gray-50 focus:bg-transparent" 
-                />
-                <button type="button" onClick={handleScrape} className="text-white text-xl font-bold bg-black py-3 w-52 rounded-lg border transition duration-100 hover:border-black hover:bg-white hover:text-black" disabled={loading}>Submit</button>
+                <div className="p-3 w-full flex justify-center sticky">
+                    <input 
+                        type="search" 
+                        name="product" 
+                        id="product" 
+                        placeholder="Search for Product" 
+                        value={keyword} 
+                        onChange={(e) => setKeyword(e.target.value)} 
+                        onKeyDown={handleKeyDown} 
+                        className="sm:w-full lg:w-[1000px] px-2 py-3 border border-gray-300 rounded-lg mr-2 bg-gray-50 focus:border-transparent active:border-gray-300" 
+                    />
+                    <button type="button" onClick={handleScrape} className="text-white text-xl font-bold bg-black py-2 w-36 rounded-lg border border-black transition duration-100 hover:border-black hover:bg-white hover:text-black" disabled={loading}>Submit</button>
+                </div>
+                               
+                
+                {/* Dropdown for platform selection */}
+                <select onChange={(e) => setSelectedPlatform(e.target.value)} className="mb-4">
+                    <option value="">All Platforms</option>
+                    <option value="Jumia">Jumia</option>
+                    <option value="Slot">Slot</option>
+                    <option value="Jiji">Jiji</option>
+                    {/* Add more platforms as needed */}
+                </select>
+
                 {loading && <p className="text-black">Loading...</p>}
                 <ul className="grid grid-cols-3">
                     {error && <li className="text-red-500">{error}</li>}
-                    {results.length === 0 && !loading && <li className="text-gray-500 text-center">No results found.</li>}
-                    {Array.isArray(results) && results.map((result, index) => (
+                    {filteredResults.length === 0 && !loading && <li className="text-gray-500 text-center">No results found.</li>}
+                    {Array.isArray(filteredResults) && filteredResults.map((result, index) => (
                         <Card
                             url={result.url}
                             img={result.img}
