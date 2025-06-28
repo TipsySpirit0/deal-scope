@@ -89,7 +89,7 @@ export default function Dashboard() {
                                
                 
                 {/* Dropdown for platform selection */}
-                <select onChange={(e) => setSelectedPlatform(e.target.value)} className="mb-4">
+                <select onChange={(e) => setSelectedPlatform(e.target.value)} className="mb-4 appearance-none focus:outline-none">
                     <option value="">All Platforms</option>
                     <option value="Jumia">Jumia</option>
                     <option value="Slot">Slot</option>
