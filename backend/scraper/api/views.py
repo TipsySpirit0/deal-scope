@@ -4,11 +4,21 @@ import requests
 import random
 from bs4 import BeautifulSoup
 from ..models import Scraper  
-from .serializers import ScraperSerializer  
+from django.contrib.auth import get_user_model
+from .serializers import ScraperSerializer, RegisterSerializer
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.viewsets import ViewSet
+from rest_framework.views import APIView
+
+User = get_user_model()
 
 class ScraperViewSet(ModelViewSet):
     queryset = Scraper.objects.all()
     serializer_class = ScraperSerializer
+    permission_classes = [AllowAny]
     
     def create(self, request):
         search_query = request.data.get('keyword')
@@ -147,3 +157,13 @@ class ScraperViewSet(ModelViewSet):
                 results.append(result)
         
         return results
+
+class RegisterView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response({'message': 'User registered successfully', 'username': user.username}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

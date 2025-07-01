@@ -19,6 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('dealscope.api.urls')),  # Include the scraper API URLs
-    
+    path('api/', include('scraper.api.urls')),  # ✅ This must be here
 ]

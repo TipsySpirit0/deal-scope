@@ -1,7 +1,23 @@
 from rest_framework.serializers import ModelSerializer
-from ..models import Scraper  # Adjust the import based on your project structure
+from ..models import Scraper 
+from rest_framework import serializers
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+User = get_user_model()
 
 class ScraperSerializer(ModelSerializer):
     class Meta:
-        model = Scraper  # Replace with your actual model
-        fields = '__all__'  # Adjust fields as necessary
+        model = Scraper 
+        fields = '__all__'
+        
+class RegisterSerializer(ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password']
+
+    def create(self, validated_data):
+        return User.objects.create_user(**validated_data)

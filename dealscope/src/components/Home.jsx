@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 export default function Home(){
     return(
         <div className="font-roboto">
-            <section className="flex flex-col items-center justify-center w-full bg-gradient-to-b from-slate-50 to-gray-100 py-60 text-center">
+            <section className="flex flex-col items-center justify-center w-full bg-gradient-to-b from-slate-50 to-gray-100 py-60 pb-52 text-center">
                 <div className=" space-y-2">
                     <h1 className="font-roboto text-6xl font-bold">Find the Best Deals Across the Web</h1>
-                    <p className="mx-auto max-w-[700px] text-xl text-slate-500">Compare prices from various retailers and get personalized recommendations</p>
+                    <p className="mx-auto max-w-[700px] text-xl text-slate-500">Compare prices. Shop smarter. Save money.</p>
                 </div>
                 <Link to='/dashboard' className="bg-black font-roboto border hover:bg-slate-50 font-bold hover:text-black scale-105 transition ease-in-out duration-200 hover:border-black text-white rounded-md px-4 py-3 my-3">Get started</Link>
             </section>

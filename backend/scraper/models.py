@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Scraper(models.Model):
@@ -15,3 +16,6 @@ class Scraper(models.Model):
         return f"{self.product_name} - {self.price}"
     
     # auto_now_add=True, 
+class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
+    # Add any other custom fields here
