@@ -82,7 +82,7 @@ export default function Dashboard() {
                         value={keyword} 
                         onChange={(e) => setKeyword(e.target.value)} 
                         onKeyDown={handleKeyDown} 
-                        className="sm:w-full lg:w-[1000px] px-2 py-3 border border-gray-300 rounded-lg mr-2 bg-gray-50 focus:border-transparent active:border-gray-300" 
+                        className="sm:w-full lg:w-[1000px] px-2 py-3 border border-gray-300 rounded-lg mr-2 bg-gray-50 focus:border-transparent active:border-gray-300 focus:bg-gray-50" 
                     />
                     <button type="button" onClick={handleScrape} className="text-white text-xl font-bold bg-black py-2 w-36 rounded-lg border border-black transition duration-100 hover:border-black hover:bg-white hover:text-black" disabled={loading}>Submit</button>
                 </div>
