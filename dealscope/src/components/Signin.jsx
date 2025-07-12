@@ -55,7 +55,7 @@ export default function Signin() {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="hover:scale-105 transition duration-200 rounded p-1 mb-7 border border-gray-300"
+              className="rounded p-1 mb-7 border border-gray-300"
               placeholder="Enter Username"
               required
             />
@@ -66,7 +66,7 @@ export default function Signin() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="hover:scale-105 transition duration-200 rounded p-1 mb-7 border border-gray-300"
+              className="rounded p-1 mb-7 border border-gray-300"
               placeholder="Enter Password"
               required
             />

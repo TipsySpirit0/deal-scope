@@ -9,7 +9,7 @@ export default function Navbar(){
     return(
             <div className="border-b flex justify-center font-roboto border-slate-400 fixed w-screen z-10 bg-white">
                 <div className="flex container h-14 font-mono font-semibold items-center justify-between px-6">
-                    <Link to='/dashboard' className="flex gap-1 font-roboto text-2xl cursor-pointer hover:scale-105 hover:bg-stone-900 hover:text-gray-50 px-3 py-1 rounded transition duration-200 ease-in-out">
+                    <Link to='/dashboard' className="flex gap-1 font-roboto text-2xl cursor-pointer hover:scale-105 hover:bg-stone-900 hover:text-gray-50 px-3 py-[6px] rounded-md transition duration-200 ease-in-out">
                         <FaShoppingBag />
                         DealScope
                     </Link>

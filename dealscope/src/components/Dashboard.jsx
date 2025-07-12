@@ -82,9 +82,9 @@ export default function Dashboard() {
                         value={keyword} 
                         onChange={(e) => setKeyword(e.target.value)} 
                         onKeyDown={handleKeyDown} 
-                        className="sm:w-full lg:w-[1000px] px-2 py-3 border border-gray-300 rounded-lg mr-2 bg-gray-50 focus:border-transparent active:border-gray-300 focus:bg-gray-50" 
+                        className="sm:w-full lg:w-[1000px] px-2 py-3 border border-gray-300 rounded-lg mr-2 bg-gray-50 appearance-none outline-none focus:border-gray-300 active:border-gray-300 focus:bg-gray-50" 
                     />
-                    <button type="button" onClick={handleScrape} className="text-white text-xl font-bold bg-black py-2 w-36 rounded-lg border border-black transition duration-100 hover:border-black hover:bg-white hover:text-black" disabled={loading}>Submit</button>
+                    <button type="button" onClick={handleScrape} className="text-white text-xl font-bold bg-black border-2 py-2 w-36 rounded-lg border-black transition duration-100 hover:border-black hover:bg-white hover:text-black" disabled={loading}>Submit</button>
                 </div>
                                
                 
@@ -97,10 +97,11 @@ export default function Dashboard() {
                     {/* Add more platforms as needed */}
                 </select>
 
+                {filteredResults.length === 0 && !loading && <li className="text-gray-500">No results found.</li>}
+
                 {loading && <p className="text-black">Loading...</p>}
                 <ul className="grid grid-cols-3">
                     {error && <li className="text-red-500">{error}</li>}
-                    {filteredResults.length === 0 && !loading && <li className="text-gray-500 text-center">No results found.</li>}
                     {Array.isArray(filteredResults) && filteredResults.map((result, index) => (
                         <Card
                             url={result.url}
