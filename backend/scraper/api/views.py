@@ -12,7 +12,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.views import APIView
-import threading
 
 User = get_user_model()
 
@@ -27,22 +26,25 @@ class ScraperViewSet(ModelViewSet):
             return Response({"error": "Keyword is required"}, status=400)
 
         products = []
-        lock = threading.Lock()
+        # lock = threading.Lock()
 
-        def scrape_site(scraper_method):
-            nonlocal products
-            site_products = scraper_method(search_query)
-            with lock:
-                products.extend(site_products)
+        # def scrape_site(scraper_method):
+        #     nonlocal products
+        #     site_products = scraper_method(search_query)
+        #     with lock:
+        #         products.extend(site_products)
 
-        threads = []
-        for scraper in [self.scrape_jumia, self.jiji_scraper, self.slot_scraper]:
-            thread = threading.Thread(target=scrape_site, args=(scraper,))
-            threads.append(thread)
-            thread.start()
+        # threads = []
+        # for scraper in [self.scrape_jumia, self.jiji_scraper, self.slot_scraper]:
+        #     thread = threading.Thread(target=scrape_site, args=(scraper,))
+        #     threads.append(thread)
+        #     thread.start()
 
-        for thread in threads:
-            thread.join()
+        # for thread in threads:
+        #     thread.join()
+        products.extend(self.scrape_jumia(search_query))
+        products.extend(self.jiji_scraper(search_query))
+        products.extend(self.slot_scraper(search_query))
 
         random.shuffle(products)
         serializer = self.serializer_class(products, many=True)
