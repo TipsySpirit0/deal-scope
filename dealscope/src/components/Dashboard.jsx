@@ -70,10 +70,9 @@ export default function Dashboard() {
         : results;
 
     return (
-        <div className="flex justify-center items-center h-fit w-auto">
-            <div className="text-center">
-                <h1 className="text-5xl font-semibold mb-9">DealScope</h1>
-                <div className="p-3 w-full flex justify-center sticky">
+        <div className=" px-3 h-fit w-[100%]">
+            <div className="text-center w-[100%] flex flex-col justify-center content-center items-center">
+                <div className="p-3 flex items-center gap-2 w-[100%] justify-center flex-col md:flex-row">
                     <input 
                         type="search" 
                         name="product" 
@@ -82,9 +81,9 @@ export default function Dashboard() {
                         value={keyword} 
                         onChange={(e) => setKeyword(e.target.value)} 
                         onKeyDown={handleKeyDown} 
-                        className="sm:w-full lg:w-[1000px] px-2 py-3 border border-gray-300 rounded-lg mr-2 bg-gray-50 appearance-none outline-none focus:border-gray-300 active:border-gray-300 focus:bg-gray-50" 
+                        className="sm:w-full max-w-[75%] px-2 py-3 border border-gray-300 rounded-lg mr-2 bg-gray-50 appearance-none outline-none focus:border-gray-300 active:border-gray-300 focus:bg-gray-50" 
                     />
-                    <button type="button" onClick={handleScrape} className="text-white text-xl font-bold bg-black border-2 py-2 w-36 rounded-lg border-black transition duration-100 hover:border-black hover:bg-white hover:text-black" disabled={loading}>Submit</button>
+                    <button type="button" onClick={handleScrape} className="text-white text-base md:text-xl font-bold bg-black border-2 py-2 px-4 rounded-lg border-black transition duration-100 hover:border-black hover:bg-white hover:text-black" disabled={loading}>Submit</button>
                 </div>
                                
                 
@@ -100,19 +99,22 @@ export default function Dashboard() {
                 {filteredResults.length === 0 && !loading && <li className="text-gray-500">No results found.</li>}
 
                 {loading && <p className="text-black">Loading...</p>}
-                <ul className="grid grid-cols-3">
-                    {error && <li className="text-red-500">{error}</li>}
-                    {Array.isArray(filteredResults) && filteredResults.map((result, index) => (
-                        <Card
-                            url={result.url}
-                            img={result.img}
-                            product_name={result.product_name}
-                            price={result.price}
-                            platform={result.site}
-                            key={index}
-                        />
-                    ))}
-                </ul>
+                <div className="w-[85%] self-center">
+                    <ul className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                        {error && <li className="text-red-500">{error}</li>}
+                        {Array.isArray(filteredResults) && filteredResults.map((result, index) => (
+                            <Card
+                                url={result.url}
+                                img={result.img}
+                                product_name={result.product_name}
+                                price={result.price}
+                                platform={result.site}
+                                key={index}
+                            />
+                        ))}
+                    </ul>
+                </div>
+                
                 
                 {showScroll && (
                     <button onClick={scrollToTop} className="fixed bottom-10 right-10 bg-black text-white py-3 px-6 font-bold rounded-full">

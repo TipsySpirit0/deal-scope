@@ -3,11 +3,11 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import Homepage from "./pages/Homepage";
-import Aboutpage from "./pages/Aboutpage";
-import Signinpage from "./pages/SignInpage";
-import Signuppage from "./pages/Signuppage";
+import About from "./components/About";
+import Signin from "./components/Signin";
+import Signup from "./components/Signup";
 import Testcomp from "./components/Testcomp";
-import Dashboardpage from "./pages/Dashboardpage";
+import Dashboard from "./components/Dashboard";
 
 function App() {
 
@@ -16,11 +16,11 @@ function App() {
         <Navbar />
           <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/about" element={<Aboutpage />} />
-            <Route path="/signin" element={<Signinpage />} />
-            <Route path="/signup" element={<Signuppage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/test" element={<Testcomp />} />
-            <Route path="/dashboard" element={<PrivateRoute><Dashboardpage /></PrivateRoute>} />
+            <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           </Routes>
     </Router>
   )
