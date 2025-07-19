@@ -9,8 +9,19 @@ export default function Testcomp() {
       </div>
       <br />
       <div className="p-3 w-full flex justify-center sticky">
-        <input type="search" name="product" id="product" placeholder="Search for Product" className="sm:w-full lg:w-[1000px] px-2 py-3 border border-gray-300 rounded-lg mr-2 bg-gray-50 focus:bg-transparent"/>
-        <button type="button" className="text-white text-xl font-bold bg-black py-3 w-36 rounded-lg hover:border transition duration-100 hover:border-black hover:bg-white hover:text-black">Submit</button>
+        <input
+          type="search"
+          name="product"
+          id="product"
+          placeholder="Search for Product"
+          className="sm:w-full lg:w-[1000px] px-2 py-3 border border-gray-300 rounded-lg mr-2 bg-gray-50 focus:bg-transparent"
+        />
+        <button
+          type="button"
+          className="text-white text-xl font-bold bg-black py-3 w-36 rounded-lg hover:border transition duration-100 hover:border-black hover:bg-white hover:text-black"
+        >
+          Submit
+        </button>
       </div>
 
       {/* <a href={props.url} target="_blank" rel="noopener noreferrer" className="flex-col text-black flex border-slate-300 translate hover:scale-105 border rounded-xl w-[325px] h-[400px] m-4 p-3">        <img src="" alt="" />
@@ -34,7 +45,6 @@ export default function Testcomp() {
                 <p>{props.platform}</p>
             </div>                               
         </a> */}
-
     </div>
   );
 }
