@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Signin() {
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
   const handleChange = (e) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -23,33 +23,38 @@ export default function Signin() {
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:8000/api/token/', formData);
+      const response = await axios.post(
+        "http://localhost:8000/api/token/",
+        formData
+      );
       const { access, refresh } = response.data;
 
       // Store tokens
-      localStorage.setItem('accessToken', access);
-      localStorage.setItem('refreshToken', refresh);
+      localStorage.setItem("accessToken", access);
+      localStorage.setItem("refreshToken", refresh);
 
       // Redirect to dashboard
       login(response.data);
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (err) {
       if (err.response?.data) {
-        setError('Invalid credentials');
+        setError("Invalid credentials");
       } else {
-        setError('Something went wrong.');
+        setError("Something went wrong.");
       }
     }
   };
 
   return (
     <div className="flex flex-col bg-slate-50 h-screen justify-center items-center gap-2">
-      <div className="flex flex-col text-center px-5 py-8 bg-gray-100 border border-slate-300 min-w-96 rounded-lg">
+      <div className="flex flex-col text-center px-5 py-8 bg-gray-100 border border-slate-300 min-w-56 md:min-w-96 rounded-lg">
         <h1 className="font-bold mb-1 text-3xl">Sign In</h1>
         <br />
         <div>
           <form onSubmit={handleSubmit} className="flex flex-col m-2 text-left">
-            <label htmlFor="username" className="mb-1">Username</label>
+            <label htmlFor="username" className="mb-1">
+              Username
+            </label>
             <input
               type="text"
               name="username"
@@ -60,7 +65,9 @@ export default function Signin() {
               required
             />
 
-            <label htmlFor="password" className="mb-1">Password</label>
+            <label htmlFor="password" className="mb-1">
+              Password
+            </label>
             <input
               type="password"
               name="password"
@@ -82,9 +89,11 @@ export default function Signin() {
           </form>
         </div>
       </div>
-      <div className="flex flex-row justify-center px-5 py-8 bg-gray-100 min-w-96 rounded-lg border border-slate-300">
+      <div className="flex flex-col text-center md:flex-row justify-center px-5 py-8 bg-gray-100 min-w-60 md:min-w-96 rounded-lg border border-slate-300">
         <p>New to DealScope? </p>
-        <Link to="/signup" className="ml-1 text-blue-600">Create an account</Link>
+        <Link to="/signup" className="ml-1 text-blue-600">
+          Create an account
+        </Link>
       </div>
     </div>
   );
