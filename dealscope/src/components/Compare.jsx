@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import Searchbar from "./Searchbar";
 
-export default function Dashboard() {
+export default function Compare() {
   const [keyword, setKeyword] = useState("");
   const [results, setResults] = useState([]);
   const [error, setError] = useState("");

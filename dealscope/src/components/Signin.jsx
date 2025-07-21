@@ -35,7 +35,7 @@ export default function Signin() {
 
       // Redirect to dashboard
       login(response.data);
-      navigate("/dashboard");
+      navigate("/compare");
     } catch (err) {
       if (err.response?.data) {
         setError("Invalid credentials");

@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.views import APIView
+import threading
 
 User = get_user_model()
 
@@ -21,34 +22,45 @@ class ScraperViewSet(ModelViewSet):
     permission_classes = [AllowAny]
     
     def create(self, request):
+        # search_query = request.data.get('keyword')
+        # if not search_query:
+        #     return Response({"error": "Keyword is required"}, status=400)
+
+        # products = []
+        
+        # products.extend(self.scrape_jumia(search_query))
+        # products.extend(self.jiji_scraper(search_query))
+        # products.extend(self.slot_scraper(search_query))
+
+        # random.shuffle(products)
+        # serializer = self.serializer_class(products, many=True)
+        # return Response(serializer.data, status=201)
         search_query = request.data.get('keyword')
         if not search_query:
             return Response({"error": "Keyword is required"}, status=400)
 
         products = []
-        # lock = threading.Lock()
+        lock = threading.Lock()
 
-        # def scrape_site(scraper_method):
-        #     nonlocal products
-        #     site_products = scraper_method(search_query)
-        #     with lock:
-        #         products.extend(site_products)
+        def scrape_site(scraper_method):
+            nonlocal products
+            site_products = scraper_method(search_query)
+            with lock:
+                products.extend(site_products)
 
-        # threads = []
-        # for scraper in [self.scrape_jumia, self.jiji_scraper, self.slot_scraper]:
-        #     thread = threading.Thread(target=scrape_site, args=(scraper,))
-        #     threads.append(thread)
-        #     thread.start()
+        threads = []
+        for scraper in [self.scrape_jumia, self.jiji_scraper, self.slot_scraper]:
+            thread = threading.Thread(target=scrape_site, args=(scraper,))
+            threads.append(thread)
+            thread.start()
 
-        # for thread in threads:
-        #     thread.join()
-        products.extend(self.scrape_jumia(search_query))
-        products.extend(self.jiji_scraper(search_query))
-        products.extend(self.slot_scraper(search_query))
+        for thread in threads:
+            thread.join()
 
         random.shuffle(products)
         serializer = self.serializer_class(products, many=True)
         return Response(serializer.data, status=201)
+
 
     def scrape_jumia(self, search_query):
         headers = {
@@ -63,7 +75,7 @@ class ScraperViewSet(ModelViewSet):
             if response.status_code != 200:
                 continue
 
-            soup = BeautifulSoup(response.content, 'html.parser')
+            soup = BeautifulSoup(response.content, 'lxml')
             for item in soup.select("article.prd"):
                 name_tag = item.select_one("h3.name")
                 price_tag = item.select_one("div.prc")
@@ -99,8 +111,8 @@ class ScraperViewSet(ModelViewSet):
             if response.status_code != 200:
                 continue
 
-            soup = BeautifulSoup(response.text, 'html.parser')
-            products = soup.find_all('div', class_='product-card__content')
+            soup = BeautifulSoup(response.text, 'lxml')
+            # products = soup.find_all('div', class_='product-card__content')
 
             for product in soup.select('ol.products.list.items.product-items > li.product-item'):
                 # Product Title
@@ -146,7 +158,7 @@ class ScraperViewSet(ModelViewSet):
                 print("Failed to retrieve data:", e)
                 return []
 
-            soup = BeautifulSoup(response.text, 'html.parser')
+            soup = BeautifulSoup(response.text, 'lxml')
             listings = soup.find_all("div", class_="b-list-advert__gallery__item js-advert-list-item")
 
             for item in listings:

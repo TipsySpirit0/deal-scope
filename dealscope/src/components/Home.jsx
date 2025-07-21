@@ -17,7 +17,7 @@ export default function Home() {
           </p>
         </div>
         <Link
-          to="/dashboard"
+          to="/compare"
           className="bg-black font-roboto border hover:bg-slate-50 font-bold hover:text-black scale-105 transition ease-in-out duration-200 hover:border-black text-white rounded-md px-4 py-2 md:px-6 md:py-3 my-3"
         >
           Get started

@@ -15,7 +15,7 @@ export default function Navbar() {
     <div className="border-b justify-center flex font-roboto border-slate-400 bg-white sticky top-0 z-10">
       <div className="flex justify-between container px-6 h-14 font-mono font-semibold items-center">
         <Link
-          to="/dashboard"
+          to="/compare"
           className="flex gap-1 font-roboto text-base md:text-lg lg:text-2xl cursor-pointer hover:scale-105 hover:bg-stone-900 hover:text-gray-50 px-3 py-[6px] rounded-md transition duration-200 ease-in-out"
         >
           <FaShoppingBag />
