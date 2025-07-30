@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-q9e4g_2qk)#%5pxi#a68jr!8&bo_626t$x!*b1@mx-hhvkjo4x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['deal-scope-usf5.onrender.com']
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
