@@ -13,7 +13,7 @@ export default function Compare() {
   const handleScrape = async () => {
     setLoading(true);
     try {
-      const response = await fetch("https://deal-scope-eple.onrender.com/api/scrapers/", {
+      const response = await fetch("https://deal-scope-7yha.onrender.com/api/scrapers/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
