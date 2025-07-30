@@ -64,8 +64,11 @@ class ScraperViewSet(ModelViewSet):
 
     def scrape_jumia(self, search_query):
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:118.0) Gecko/20100101 Firefox/118.0',
-            'Accept-Language': 'en-US,en;q=0.5',
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:112.0) Gecko/20100101 Firefox/112.0",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Referer": "https://www.jumia.com.ng/",
+            "Connection": "keep-alive",
         }
         base_url = f"https://www.jumia.com.ng/catalog/?q={search_query}&page="
         products = []
@@ -144,8 +147,11 @@ class ScraperViewSet(ModelViewSet):
     def jiji_scraper(self, search_query):
         base_url = f"https://jiji.ng/search?query={search_query}&page="
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:118.0) Gecko/20100101 Firefox/118.0',
-            'Accept-Language': 'en-US,en;q=0.5',
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:112.0) Gecko/20100101 Firefox/112.0",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Referer": "https://jiji.ng/",
+            "Connection": "keep-alive",
         }
         
         results = []
