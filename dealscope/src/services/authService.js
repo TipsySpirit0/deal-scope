@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://deal-scope-7yha.onrender.com/api';
+const API_URL = 'https://deal-scope-usf5.onrender.com/api';
 
 export const signup = (username, password) => {
   return axios.post(`${API_URL}/register/`, { username, password });

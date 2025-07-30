@@ -27,7 +27,7 @@ export default function Signup() {
     setSuccess(null);
     try {
       const response = await axios.post(
-        "https://deal-scope-7yha.onrender.com/api/register/",
+        "https://deal-scope-usf5.onrender.com/api/register/",
         formData
       );
       setSuccess(response.data.message);
