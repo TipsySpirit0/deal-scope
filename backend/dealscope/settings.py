@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     'corsheaders',  # For handling CORS headers
 ]
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
+CORS_ALLOWED_ORIGINS = ['https://deal-scope-five.vercel.app']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
