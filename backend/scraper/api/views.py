@@ -64,7 +64,8 @@ class ScraperViewSet(ModelViewSet):
 
     def scrape_jumia(self, search_query):
         headers = {
-            "User-Agent": "Mozilla/5.0"
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:118.0) Gecko/20100101 Firefox/118.0',
+            'Accept-Language': 'en-US,en;q=0.5',
         }
         base_url = f"https://www.jumia.com.ng/catalog/?q={search_query}&page="
         products = []
@@ -94,14 +95,14 @@ class ScraperViewSet(ModelViewSet):
                         "url": product_link
                     }
                     products.append(product)
-                    # Save to database
-                    # Scraper.objects.create(**product)
+        
         return products
 
     def slot_scraper(self, search_query):
         base_url = f'https://slot.ng/index.php/catalogsearch/result/?cat=&q={search_query}&p='
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0 Safari/537.36"
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:118.0) Gecko/20100101 Firefox/118.0',
+            'Accept-Language': 'en-US,en;q=0.5',
         }
 
         data = []
@@ -143,7 +144,8 @@ class ScraperViewSet(ModelViewSet):
     def jiji_scraper(self, search_query):
         base_url = f"https://jiji.ng/search?query={search_query}&page="
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115 Safari/537.36"
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:118.0) Gecko/20100101 Firefox/118.0',
+            'Accept-Language': 'en-US,en;q=0.5',
         }
         
         results = []
