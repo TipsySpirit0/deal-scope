@@ -11,3 +11,4 @@ python-dotenv
 requests
 bs4
 gunicorn
+lxml
