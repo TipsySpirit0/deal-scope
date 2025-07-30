@@ -143,7 +143,8 @@ class ScraperViewSet(ModelViewSet):
     
     def jiji_scraper(self, search_query):
         base_url = f"https://jiji.ng/search?query={search_query}&page="
-        url = f"https://jiji.ng/search?query={query}&page=1&sort=rel"
+        url = f"https://jiji.ng/search?query={search_query}&page=1&sort=rel"
+
         headers = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
