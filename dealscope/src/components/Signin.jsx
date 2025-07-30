@@ -24,7 +24,7 @@ export default function Signin() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/token/",
+        "https://deal-scope-7yha.onrender.com/api/token/",
         formData
       );
       const { access, refresh } = response.data;
