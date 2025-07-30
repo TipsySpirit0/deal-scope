@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api';
+const API_URL = 'https://deal-scope-eple.onrender.com';
 
 export const signup = (username, password) => {
   return axios.post(`${API_URL}/register/`, { username, password });
